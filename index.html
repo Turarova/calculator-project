@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -10,36 +9,39 @@
 <body>
 
 <div class="calculator">
-  <div id="history" aria-live="polite">No History</div>
-  <input type="text" id="result" value="0" readonly>
+  <div class="display-container">
+    <div id="history" aria-live="polite">No History</div>
+    <input type="text" id="result" value="0" readonly>
+  </div>
+
   <div class="buttons">
-    <button class="func">AC</button>
-    <button class="func">C</button>
-    <button class="func">Back</button>
+    <button data-action="clearAll" class="func">AC</button>
+    <button data-action="clearEntry" class="func">C</button>
+    <button data-action="backspace" class="func">Back</button>
     <button data-action="op" data-value="/" class="op">÷</button>
 
-    <button data-action="add" class="num">7</button>
-    <button data-action="add" class="num">8</button>
-    <button data-action="add" class="num">9</button>
+    <button data-action="add" data-value="7" class="num">7</button>
+    <button data-action="add" data-value="8" class="num">8</button>
+    <button data-action="add" data-value="9" class="num">9</button>
     <button data-action="op" data-value="×" class="op">×</button>
 
-    <button data-action="add" class="num">4</button>
-    <button data-action="add" class="num">5</button>
-    <button data-action="add" class="num">6</button>
-    <button data-action="op" data-value="−" class="op">−</button>
+    <button data-action="add" data-value="4" class="num">4</button>
+    <button data-action="add" data-value="5" class="num">5</button>
+    <button data-action="add" data-value="6" class="num">6</button>
+    <button data-action="op" data-value="-" class="op">−</button>
 
-    <button data-action="add" class="num">1</button>
-    <button data-action="add" class="num">2</button>
-    <button data-action="add" class="num">3</button>
+    <button data-action="add" data-value="1" class="num">1</button>
+    <button data-action="add" data-value="2" class="num">2</button>
+    <button data-action="add" data-value="3" class="num">3</button>
     <button data-action="op" data-value="+" class="op">+</button>
 
-    <button data-action="op" data-value="±" class="op">±</button>
-    <button class="num zero">0</button>
-    <button data-action="add" class="num">.</button>
-    <button data-action="op" data-value="√" class="op">√</button>
+    <button data-action="toggleSign" class="op">±</button>
+    <button data-action="add" data-value="0" class="num zero">0</button>
+    <button data-action="add" data-value="." class="num">.</button>
+    <button data-action="sqrt" class="op">√</button>
 
-    <button class="theme-btn" id="themeBtn">Moon</button>
-    <button class="equal">=</button>
+    <button data-action="toggleTheme" class="theme-btn" id="themeBtn">Moon</button>
+    <button data-action="calculate" class="equal">=</button>
   </div>
 </div>
 
