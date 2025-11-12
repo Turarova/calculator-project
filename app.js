@@ -126,6 +126,43 @@ class Calculator {
     this.display.value = this.current || '0';
   }
 
+  bindEvents() {
+    document.querySelectorAll('button[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.dataset.action;
+        const value = btn.dataset.value;
+        if (action === 'add') this.add(value);
+        else if (action === 'op') this.op(value);
+        else if (action === 'calculate') this.calculate();
+        else if (action === 'clearEntry') this.clearEntry();
+        else if (action === 'clearAll') this.clearAll();
+        else if (action === 'backspace') this.backspace();
+        else if (action === 'sqrt') this.sqrt();
+        else if (action === 'toggleSign') this.toggleSign();
+        else if (action === 'toggleTheme') this.toggleTheme();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      const key = e.key;
+      if (['Enter','Escape','Backspace','+','-','*','/','s','S','t','T',' '].includes(key)) e.preventDefault();
+
+      if (key >= '0' && key <= '9') this.add(key);
+      else if (key === '.') this.add('.');
+      else if (key === '+') this.op('+');
+      else if (key === '-') this.op('-');
+      else if (key === '*') this.op('*');
+      else if (key === '/') this.op('/');
+      else if (key === 'Enter') this.calculate();
+      else if (key === 'Backspace') this.backspace();
+      else if (key === 'Escape') this.clearAll();
+      else if (key === 'c' || key === 'C') this.clearEntry();
+      else if (key === 's' || key === 'S') this.sqrt();
+      else if (key === 't' || key === 'T') this.toggleSign();
+      else if (key === ' ') this.toggleTheme();
+    });
+  }
 }
+
 
 const calc = new Calculator();
