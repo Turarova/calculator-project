@@ -106,6 +106,26 @@ class Calculator {
       .map(expr => `<div class="hist-item">${expr}</div>`)
       .join('');
   }
+
+
+  toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('calculator-theme', newTheme);
+    this.themeBtn.textContent = isDark ? 'Moon' : 'Sun';
+  }
+
+  loadTheme() {
+    const saved = localStorage.getItem('calculator-theme') || 'light';
+    document.documentElement.setAttribute('data-theme', saved);
+    this.themeBtn.textContent = saved === 'dark' ? 'Sun' : 'Moon';
+  }
+
+  updateDisplay() {
+    this.display.value = this.current || '0';
+  }
+
 }
 
 const calc = new Calculator();
