@@ -56,6 +56,45 @@ class Calculator {
     this.updateDisplay();
   }
 
+  calculate() {
+    if (this.current === '' || this.previous === '') return;
+
+    let a = parseFloat(this.previous);
+    let b = parseFloat(this.current);
+    let result = 0;
+    let expr = '';
+
+    if (this.operation === '+') { result = a + b; expr = `${a} + ${b} = ${result}`; }
+    else if (this.operation === '-') { result = a - b; expr = `${a} - ${b} = ${result}`; }
+    else if (this.operation === '*') { result = a * b; expr = `${a} × ${b} = ${result}`; }
+    else if (this.operation === '/') {
+      if (b === 0) { alert("Cannot divide by zero!"); this.clearAll(); return; }
+      result = a / b; expr = `${a} ÷ ${b} = ${result}`;
+    }
+
+    const rounded = Number(result.toFixed(4));
+    expr = expr.replace(result + '', rounded + '');
+
+    this.current = rounded.toString();
+    this.display.value = rounded;
+    this.previous = ''; this.operation = ''; this.waitingForNewInput = true;
+    this.addToHistory(expr);
+  }
+
+
+  backspace() {
+    if (this.waitingForNewInput) { this.current = ''; this.waitingForNewInput = false; }
+    if (this.current.length > 0) { this.current = this.current.slice(0, -1); this.updateDisplay(); }
+  }
+
+  clearEntry() { this.current = ''; this.updateDisplay(); }
+  clearAll() { this.current = ''; this.previous = ''; this.operation = ''; this.waitingForNewInput = false; this.updateDisplay(); }
+
+  addToHistory(expression) {
+    this.history.unshift(expression);
+    if (this.history.length > 10) this.history.pop();
+    this.renderHistory();
+  }
 
   renderHistory() {
     if (this.history.length === 0) {
