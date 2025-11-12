@@ -1,105 +1,165 @@
-
-:root { 
-    --bg: #f5f5f7; 
-    --calc-bg: #fff; 
-    --text: #000; 
-    --num-bg: #e5e5e7; 
-    --op-bg: #ff9500; 
-    --op-text: #fff; 
-    --func-bg: #d1d1d6; 
-    --equal-bg: #ff9500; 
-    --shadow: rgba(0,0,0,0.1); 
-    --border-radius: 18px; 
+:root {
+  --bg: #f5f5f7;
+  --calc-bg: #ffffff;
+  --text: #000;
+  --num-bg: #e5e5e7;
+  --op-bg: #ff9500;
+  --op-text: #fff;
+  --func-bg: #d1d1d6;
+  --equal-bg: #ff9500;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --border-radius: 18px;
 }
 
-
-[data-theme="dark"] { 
-    --bg: #1c1c1e; 
-    --calc-bg: #2c2c2e; 
-    --text: #fff; 
-    --num-bg: #3a3a3c; 
-    --op-bg: #ff9f0a; 
-    --func-bg: #48484a; 
-    --equal-bg: #ff9f0a; 
-    --shadow: rgba(0,0,0,0.3); 
+[data-theme="dark"] {
+  --bg: #1c1c1e;
+  --calc-bg: #2c2c2e;
+  --text: #fff;
+  --num-bg: #3a3a3c;
+  --op-bg: #ff9f0a;
+  --op-text: #fff;
+  --func-bg: #48484a;
+  --equal-bg: #ff9f0a;
+  --shadow: rgba(0, 0, 0, 0.3);
 }
 
-* { box-sizing: border-box; }
-body { 
-    margin: 0; 
-    padding: 40px 20px; 
-    background: var(--bg); 
-    display: flex; 
-    justify-content: center; 
-    font-family: -apple-system; 
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.calculator { 
-    width: 340px; 
-    background: var(--calc-bg); 
-    border-radius: var(--border-radius); 
-    box-shadow: 0 10px 30px var(--shadow); 
-    padding: 20px; 
+body {
+  margin: 0;
+  padding: 40px 20px;
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  transition: background 0.3s;
 }
 
-
-#result { 
-    font-size: 3.5rem; 
-    font-weight: 300; 
-    color: var(--text); 
-    background: transparent; 
-    border: none; 
-    width: 100%; 
-    text-align: right; 
+.calculator {
+  width: 340px;
+  background: var(--calc-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px var(--shadow);
+  overflow: hidden;
+  padding: 20px;
 }
 
-.buttons { 
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 12px; 
+.display-container {
+  text-align: right;
+  padding: 10px 0;
+  margin-bottom: 10px;
 }
 
-button { 
-    height: 64px; 
-    border-radius: 50%; 
-    border: none; 
-    font-size: 1.8rem; 
-    transition: all 0.1s; 
+#history {
+  font-size: 0.85rem;
+  color: #888;
+  max-height: 80px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  text-align: right;
+  padding-right: 4px;
+  line-height: 1.4;
 }
 
-button:active { transform: scale(0.95); }
-.num { 
-    background: var(--num-bg); 
-    color: var(--text); 
+.hist-item {
+  padding: 1px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.op { 
-    background: var(--op-bg); 
-    color: var(--op-text); 
+#history::-webkit-scrollbar {
+  width: 4px;
+}
+#history::-webkit-scrollbar-track {
+  background: transparent;
+}
+#history::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+[data-theme="dark"] #history::-webkit-scrollbar-thumb {
+  background: #666;
 }
 
-.func { 
-    background: var(--func-bg); 
-    color: var(--text); 
-    font-size: 1.4rem; 
+#result {
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  text-align: right;
+  padding: 0;
+  margin: 0;
 }
 
-.equal { 
-    background: var(--equal-bg); 
-    color: #fff; 
-    grid-column: span 2; 
-    border-radius: 32px; 
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
 }
 
-.zero { 
-    grid-column: span 2; 
-    border-radius: 32px; 
-    padding-left: 24px; 
-    text-align: left; 
+button {
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: 400;
+  transition: all 0.1s;
+  user-select: none;
 }
 
-.theme-btn { 
-    font-size: 1.2rem; 
-    background: var(--func-bg); 
-    color: var(--text); 
+button:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+.num {
+  background: var(--num-bg);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.op {
+  background: var(--op-bg);
+  color: var(--op-text);
+  font-weight: 600;
+}
+
+.func {
+  background: var(--func-bg);
+  color: var(--text);
+  font-size: 1.4rem;
+}
+
+.equal {
+  background: var(--equal-bg);
+  color: var(--op-text);
+  grid-column: span 2;
+  border-radius: 32px;
+}
+
+.zero {
+  grid-column: span 2;
+  border-radius: 32px;
+  padding-left: 24px;
+  text-align: left;
+}
+
+.theme-btn {
+  font-size: 1.2rem;
+  background: var(--func-bg);
+  color: var(--text);
+}
+
+@media (max-width: 380px) {
+  .calculator { width: 100%; margin: 0 10px; }
+  button { height: 56px; font-size: 1.6rem; }
+  #result { font-size: 3rem; }
 }
