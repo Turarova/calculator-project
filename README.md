@@ -2,6 +2,7 @@
 # iOS-Style Calculator  
 **A modern, responsive calculator built with HTML, CSS, and ES6 JavaScript.**
 
+Check it out: https://turarova.github.io/calculator-project/
 ---
 
 ## Features
